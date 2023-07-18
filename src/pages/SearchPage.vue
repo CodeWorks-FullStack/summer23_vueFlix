@@ -5,6 +5,7 @@
         <h1>Search</h1>
         <form @submit.prevent="getMoviesByQuery()">
           <label for="searchBar">Search Movies</label>
+          <!-- NOTE v-model sets up two-way data-binding between this input and our editable object defined in setup -->
           <input v-model="editable.query" id="searchBar" type="text" required minlength="2" class="w-50">
           <button class="btn btn-info" type="submit">
             <i class="mdi mdi-magnify"></i>
@@ -12,12 +13,14 @@
         </form>
       </div>
       <div class="col-12">
+        <!-- NOTE reuseable components! -->
         <PageNavigation />
       </div>
     </div>
     <div class="row">
 
       <div v-for="movie in movies" :key="movie.id" class="col-md-2">
+        <!-- NOTE reuseable components! -->
         <MovieCard :movieProp="movie" />
       </div>
     </div>
@@ -37,6 +40,7 @@ import PageNavigation from '../components/PageNavigation.vue';
 
 export default {
   setup() {
+    // NOTE creates a reactive object that we bind to our input field above
     const editable = ref({});
 
     onMounted(() => {
@@ -53,6 +57,7 @@ export default {
       async getMoviesByQuery() {
         try {
           logger.log(editable.value);
+          // NOTE editable is a wrapper around our object used to instantiate our ref, we care about the value stored inside of it
           const queryObject = editable.value;
           await moviesService.getMoviesByQuery(queryObject);
         }

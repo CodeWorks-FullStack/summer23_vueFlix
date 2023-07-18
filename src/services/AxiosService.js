@@ -10,6 +10,7 @@ export const api = Axios.create({
 export const movieApi = Axios.create({
   baseURL: 'https://api.themoviedb.org/3',
   timeout: 8000,
+  // NOTE we add the params object so that axios will include all of these and values as parameters for our HTTP requests
   params: {
     api_key: '545c6ef058e65396849dfbbf381cbca3',
     include_adult: false,
